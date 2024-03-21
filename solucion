@@ -1,0 +1,35 @@
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import os
+import time
+
+def encrypt_file_AES256_GCM(key, input_file):
+    with open(input_file, 'rb') as f:
+        plaintext = f.read()
+    output_file = "/Users/fonsi/Desktop/pruebasCAI1G/archivo_cifrado.txt"
+    start_time = time.time()
+    aesgcm = AESGCM(key)
+    nonce = os.urandom(12)
+    ciphertext = aesgcm.encrypt(nonce, plaintext, None)
+    elapsed_time = time.time() - start_time
+    print(f"Tiempo de cifrado: {elapsed_time:.10f} segundos")
+
+    with open(output_file, 'wb') as f:
+        f.write(nonce + b'\n')  # Añade un salto de línea para separar el nonce del ciphertext
+        f.write(ciphertext)
+
+def decrypt_file_AES256_GCM(key, input_file):
+    with open(input_file, 'rb') as f:
+        nonce = f.readline().rstrip(b'\n')  # Lee el nonce y elimina el salto de línea
+        ciphertext = f.read()
+    
+    output_file = "/Users/fonsi/Desktop/pruebasCAI1G/archivo_descifrado.txt"
+    start_time = time.time()
+    aesgcm = AESGCM(key)
+    plaintext = aesgcm.decrypt(nonce, ciphertext, None)
+    elapsed_time = time.time() - start_time
+    print(f"Tiempo de descifrado: {elapsed_time:.10f} segundos")
+
+    with open(output_file, 'wb') as f:
+        f.write(plaintext)
+
+
