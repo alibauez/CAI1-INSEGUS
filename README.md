@@ -9,10 +9,12 @@ El código proporcionado incluye dos funciones principales: `encrypt_file_AES256
 ### Ejemplo de cifrado:
 
 ```python
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-
-# Definir la clave de cifrado
-key = b'ClaveDeCifradoSuperSegura123'
+key = os.urandom(32)  # Clave aleatoria de 256 bits (32 bytes)
+input_file = "/Users/fonsi/Desktop/pruebasCAI1G/prueba.txt"  # Especifica la ruta completa del archivo de entrada
 
 # Cifrar el archivo
-encrypt_file_AES256_GCM(key, 'archivo_a_cifrar.txt')
+encrypt_file_AES256_GCM(key, input_file)
+
+# Descifrar el archivo
+decrypt_file_AES256_GCM(key, archivo_cifrado) # El archivo cifrado lo proporciona la función anterior
+
