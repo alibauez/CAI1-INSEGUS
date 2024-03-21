@@ -5,7 +5,7 @@ import time
 def encrypt_file_AES256_GCM(key, input_file):
     with open(input_file, 'rb') as f:
         plaintext = f.read()
-    output_file = "/Users/fonsi/Desktop/pruebasCAI1G/archivo_cifrado.txt"
+    output_file = "ruta/para/el/fichero/cifrado"
     start_time = time.time()
     aesgcm = AESGCM(key)
     nonce = os.urandom(12)
@@ -22,7 +22,7 @@ def decrypt_file_AES256_GCM(key, input_file):
         nonce = f.readline().rstrip(b'\n')  # Lee el nonce y elimina el salto de línea
         ciphertext = f.read()
     
-    output_file = "/Users/fonsi/Desktop/pruebasCAI1G/archivo_descifrado.txt"
+    output_file = "ruta/para/el/fichero/descifrado"
     start_time = time.time()
     aesgcm = AESGCM(key)
     plaintext = aesgcm.decrypt(nonce, ciphertext, None)
@@ -31,5 +31,4 @@ def decrypt_file_AES256_GCM(key, input_file):
 
     with open(output_file, 'wb') as f:
         f.write(plaintext)
-
 
